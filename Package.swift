@@ -30,5 +30,6 @@ let package = Package(
             dependencies: ["CocoaAsyncSocket", "HTTPParserC", "Telegraph"],
             path: "Tests"
         )
-    ]
+    ],
+    swiftLanguageModes: [.v5]
 )
