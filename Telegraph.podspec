@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-  s.name = 'TillhubTelegraph'
+  s.name = 'Telegraph'
   s.version = '0.40.1'
   s.license = 'MIT'
 

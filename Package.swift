@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "TillhubTelegraph",
+    name: "Telegraph",
     platforms: [
         .iOS(.v9),
         .tvOS(.v9),
@@ -11,12 +11,12 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "TillhubTelegraph",
-            targets: ["TillhubTelegraph"]
+            name: "Telegraph",
+            targets: ["Telegraph"]
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/tillhub/CocoaAsyncSocket/CocoaAsyncSocket.git", from: "7.6.5"),
+        .package(url: "https://github.com/tillhub/CocoaAsyncSocket/CocoaAsyncSocket.git", branch: "master"),
         .package(url: "https://github.com/Building42/HTTPParserC.git", from: "9.2.0")
     ],
     targets: [
