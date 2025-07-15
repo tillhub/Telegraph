@@ -5,9 +5,7 @@ import PackageDescription
 let package = Package(
     name: "TillhubTelegraph",
     platforms: [
-        .iOS(.v9),
-        .tvOS(.v9),
-        .macOS(.v10_10)
+        .iOS(.v9)
     ],
     products: [
         .library(
@@ -16,7 +14,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/tillhub/CocoaAsyncSocket/CocoaAsyncSocket.git", from: "7.6.5"),
+        .package(url: "https://github.com/tillhub/CocoaAsyncSocket/CocoaAsyncSocket.git", from: "7.6.6"),
         .package(url: "https://github.com/Building42/HTTPParserC.git", from: "9.2.0")
     ],
     targets: [
