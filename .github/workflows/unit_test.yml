@@ -1,0 +1,46 @@
+name: Unit Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Xcode Tests
+    runs-on: macos-15
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Build and Test
+      run: |
+        mkdir -p build/reports
+        DEST_ID=$(xcrun simctl list devices available | grep "iPhone" | head -1 | grep -oE "[0-9A-F-]{36}")
+        echo "Using simulator $DEST_ID"
+        xcodebuild test \
+          -workspace Telegraph.xcworkspace \
+          -scheme "Telegraph iOS" \
+          -destination "platform=iOS Simulator,id=$DEST_ID" \
+          -configuration Debug \
+          -enableCodeCoverage YES \
+          -resultBundlePath build/TestResults.xcresult \
+          ENABLE_TESTABILITY=YES \
+          | xcpretty -c --report junit --output build/reports/junit.xml
+
+    - name: Generate Code Coverage Report
+      run: |
+        mkdir -p build/reports
+        bash xccov-to-sonarqube-generic.sh build/TestResults.xcresult > build/reports/sonarqube-generic-coverage.xml
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: build/reports/
+        retention-days: 7
