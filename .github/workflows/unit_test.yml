@@ -23,10 +23,13 @@ jobs:
     - name: Build and Test
       run: |
         mkdir -p build/reports
+        DEST_ID=$(xcrun simctl list devices available | grep "iPhone" | head -1 | grep -oE "[0-9A-F-]{36}")
+        echo "Using simulator $DEST_ID"
         xcodebuild test \
           -workspace Telegraph.xcworkspace \
           -scheme "Telegraph iOS" \
-          -destination 'platform=iOS Simulator,name=iPad (10th generation)' \
+          -destination "platform=iOS Simulator,id=$DEST_ID" \
+          -configuration Debug \
           -enableCodeCoverage YES \
           -resultBundlePath build/TestResults.xcresult \
           ENABLE_TESTABILITY=YES \
